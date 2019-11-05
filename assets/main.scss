@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Mono&display=swap");
+
+$input-btn-focus-width: 0;
+$font-size-base: 0.9rem;
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap-vue/src/index.scss";
+
+body {
+  font-family: "Fira Mono", monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+.v-icon {
+  width: 1.2em;
+}
