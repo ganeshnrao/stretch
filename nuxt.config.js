@@ -1,7 +1,7 @@
 export default {
   mode: "spa",
   head: {
-    title: "CompMan",
+    title: "Nuxt Starter",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" }
@@ -9,11 +9,8 @@ export default {
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
   loading: { color: "#000" },
-  css: ["@/assets/main.scss", "vue-ionicons/ionicons.scss"],
+  css: ["@/assets/main.scss"],
   plugins: ["~/plugins/axios", "~/plugins/icons"],
   buildModules: ["@nuxtjs/eslint-module"],
-  modules: ["bootstrap-vue/nuxt", "@nuxtjs/axios"],
-  build: {
-    extend(config, ctx) {}
-  }
+  modules: ["bootstrap-vue/nuxt", "@nuxtjs/axios"]
 };

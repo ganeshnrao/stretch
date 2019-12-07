@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Fira+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 
 $input-btn-focus-width: 0;
 $font-size-base: 0.9rem;
@@ -7,7 +7,7 @@ $font-size-base: 0.9rem;
 @import "../node_modules/bootstrap-vue/src/index.scss";
 
 body {
-  font-family: "Fira Mono", monospace;
+  font-family: "Roboto Mono", monospace;
   -webkit-font-smoothing: antialiased;
 }
 
