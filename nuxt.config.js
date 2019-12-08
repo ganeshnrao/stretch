@@ -10,7 +10,7 @@ export default {
   },
   loading: { color: "#000" },
   css: ["@/assets/main.scss"],
-  plugins: ["~/plugins/axios", "~/plugins/icons"],
+  plugins: ["~/plugins/icons"],
   buildModules: ["@nuxtjs/eslint-module"],
-  modules: ["bootstrap-vue/nuxt", "@nuxtjs/axios"]
+  modules: ["bootstrap-vue/nuxt"]
 };
