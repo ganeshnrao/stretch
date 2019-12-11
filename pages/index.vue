@@ -3,7 +3,7 @@
   b-button-group
     b-button(
       variant="outline-primary"
-      @click="$store.dispatch('routines/togglePlaying')"
+      @click="togglePlaying()"
     )
       v-icon(:name="playing ? 'stop-circle' : 'play'")
       |  {{ playing ? 'Stop' : 'Play' }}
@@ -64,15 +64,21 @@
         span {{ action.message }} 
         span
           b-badge(variant="light") {{ action.duration }} seconds
+  video.no-sleep(width="10" height="10" ref="noSleep" :loop="loop")
+    source(src="/muted-blank.mp4" type="video/mp4")
+    source(src="/muted-blank.ogv" type="video/ogg")
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
 import { mapMultiRowFields, mapFields } from "vuex-map-fields";
 
+let playPromise;
+
 export default {
   data() {
     return {
+      loop: false,
       fields: ["name", "hold", "repeat", "rest", "alternate"]
     };
   },
@@ -82,6 +88,34 @@ export default {
     ...mapFields("routines", ["currentActionIndex"]),
     ...mapState("routines", ["playing"]),
     ...mapGetters("routines", ["actions"])
+  },
+
+  methods: {
+    async togglePlaying() {
+      this.$store.dispatch("routines/togglePlaying");
+      if (this.playing) {
+        this.loop = true;
+        playPromise = this.$refs.noSleep.play();
+        await playPromise;
+      } else {
+        if (playPromise) {
+          await playPromise;
+          playPromise = null;
+        }
+        this.loop = false;
+        this.$refs.noSleep.pause();
+      }
+    }
   }
 };
 </script>
+
+<style lang="scss">
+.no-sleep {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}
+</style>
