@@ -21,7 +21,7 @@
       |  Save
   .mt-3(v-if="!playing")
     b-list-group(v-if="!editing")
-      b-list-group-item(v-for="(item, index) in exercises" :key="item.id")
+      b-list-group-item(v-for="(item, index) in exercises" :key="item.id" v-if="item.include")
         h5(:class="{ exclude: !item.include }") {{ item.name }}
         .text-secondary Repeat {{ item.repeat }} times and hold for {{ item.hold }} seconds {{ item.alternate ? 'on each side' : ''}}
     Editor(v-else :exercises="exercises")
