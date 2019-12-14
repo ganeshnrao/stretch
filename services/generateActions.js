@@ -22,16 +22,26 @@ function generateActionsForOne(exercise) {
   return actions;
 }
 
+function getWordCount(message) {
+  return message.split(/\s+/).length;
+}
+
 export default function generateActions(exercises) {
-  const actions = exercises.reduce(
-    (acc, exercise) => {
-      const { name } = exercise;
-      const actions = generateActionsForOne(exercise);
-      actions.forEach(action => acc.push({ name, ...action }));
-      return acc;
-    },
-    [{ message: "Prepare for exercises", duration: 10 }]
-  );
+  let totalDuration = 0;
+  const actions = exercises.reduce((acc, exercise) => {
+    const { name } = exercise;
+    const actions = generateActionsForOne(exercise);
+    actions.forEach(action => {
+      acc.push({ name, ...action });
+      totalDuration += action.duration + getWordCount(action.message);
+    });
+    return acc;
+  }, []);
+  const minutes = Math.ceil(totalDuration / 60);
+  actions.unshift({
+    message: `Prepare for exercises. This should take about ${minutes} minutes`,
+    duration: 10
+  });
   actions.push({ message: "All done! Good job!" });
   return actions;
 }
