@@ -2,10 +2,11 @@ import { updateField, getField } from "vuex-map-fields";
 import generateActions from "@/services/generateActions";
 import { uuid } from "@/services/utils";
 
-const saved = localStorage.getItem("exercises");
+const savedExercises = localStorage.getItem("exercises");
+const savedHistory = localStorage.getItem("history");
 
-const exercises = saved
-  ? JSON.parse(saved)
+const exercises = savedExercises
+  ? JSON.parse(savedExercises)
   : [
       {
         id: uuid(),
@@ -63,6 +64,8 @@ const exercises = saved
       }
     ];
 
+const history = savedHistory ? JSON.parse(savedHistory) : [];
+
 let timerId = null;
 
 function clearTimer() {
@@ -95,6 +98,7 @@ function clear() {
 export function state() {
   return {
     exercises,
+    history,
     currentActionIndex: -1,
     playing: false
   };
@@ -113,6 +117,14 @@ export const mutations = {
       rest: 0,
       alternate: false
     });
+  },
+
+  COMPLETED(state) {
+    state.history.push({
+      dateMs: Date.now(),
+      exercises: state.exercises.map(e => e.name)
+    });
+    localStorage.setItem("history", JSON.stringify(state.history));
   },
 
   DELETE_EXERCISE(state, exerciseId) {
@@ -212,6 +224,7 @@ export const actions = {
       }
       dispatch("gotoNextAction");
     } else {
+      commit("COMPLETED");
       commit("TOGGLE_PLAYING", false);
     }
   },

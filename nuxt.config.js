@@ -12,5 +12,6 @@ export default {
   css: ["@/assets/main.scss"],
   plugins: ["~/plugins/icons"],
   buildModules: ["@nuxtjs/eslint-module"],
-  modules: ["bootstrap-vue/nuxt"]
+  modules: ["bootstrap-vue/nuxt"],
+  router: { linkActiveClass: "active" }
 };

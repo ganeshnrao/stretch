@@ -1,5 +1,5 @@
 <template lang="pug">
-.container-fluid.py-3
+div
   b-button-group
     b-button(
       variant="outline-primary"
